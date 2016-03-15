@@ -30,6 +30,7 @@ window.onload = function(){
 
          var dataArray = [10, 20, 30, 40, 50];
 
+         //Define cities w/ populations
          var cityPop = [
 	        { 
 	            city: 'Minneapolis',
@@ -55,6 +56,7 @@ window.onload = function(){
 		        .range([100, 700]) //output min and max
 		        .domain([0, 3]); //input min and max
 
+		//get minimum value of cities array
 		var minPop = d3.min(cityPop, function(d){
 	        return d.population;
 	    });
@@ -79,31 +81,31 @@ window.onload = function(){
 	            maxPop
 	    ]);
 
-	    var circles = container.selectAll(".circles") //but wait--there are no circles yet!
+	    var circles = container.selectAll(".circles") 
 	        .data(cityPop) //here we feed in an array
-        .enter() //one of the great mysteries of the universe
-        .append("circle") //inspect the HTML--holy crap, there's some circles there
-        .attr("class", "circles")
-        .attr("id", function(d){
-            return d.city;
-        })
-        .attr("r", function(d){
-            //calculate the radius based on population value as circle area
-            var area = d.population * 0.01;
-            return Math.sqrt(area/Math.PI);
-        })
-        .attr("cx", function(d, i){
-            //use the index to place each circle horizontally
-            return x(i);
-        })
-        .attr("cy", function(d){
-            //subtract value from 450 to "grow" circles up from the bottom instead of down from the top of the SVG
-            return y(d.population);
-        })
-         .style("fill", function(d, i){ //add a fill based on the color scale generator
-            return color(d.population);
-        })
-        .style("stroke", "#000");
+	        .enter() //one of the great mysteries of the universe
+	        .append("circle") //inspect the HTML--holy crap, there's some circles there
+	        .attr("class", "circles")
+	        .attr("id", function(d){
+	            return d.city;
+	        })
+	        .attr("r", function(d){
+	            //calculate the radius based on population value as circle area
+	            var area = d.population * 0.01;
+	            return Math.sqrt(area/Math.PI);
+	        })
+	        .attr("cx", function(d, i){
+	            //use the index to place each circle horizontally
+	            return x(i);
+	        })
+	        .attr("cy", function(d){
+	            //subtract value from 450 to "grow" circles up from the bottom instead of down from the top of the SVG
+	            return y(d.population);
+	        })
+	         .style("fill", function(d, i){ //add a fill based on the color scale generator
+	            return color(d.population);
+	        })
+	        .style("stroke", "#000");
 
         var yAxis = d3.svg.axis()
 	        .scale(y)
@@ -147,7 +149,7 @@ window.onload = function(){
 	    //second line of label
 	    var format = d3.format(",");
 
-	    //Example 3.16 line 1...second line of label
+	    //second line of label
 	    var popLine = labels.append("tspan")
 	        .attr("class", "popLine")
 	        .attr("x", function(d,i){
